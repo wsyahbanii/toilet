@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83ZGNV6QP5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-83ZGNV6QP5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WS">
+    <meta name="theme-color" content="#030303">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="toilet3.png">
+    <link rel="icon" type="image/x-icon" href="toilet3.ico">
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="toilet3-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="toilet3-512.png">
+    <link rel="apple-touch-icon" href="toilet3.png">
+    
+    <title>WS</title>
+    
+    <style>
+        /* --- Variabel Global --- */
+        :root {
+            --bg-color: #030303;
+            --text-color: #cccccc;
+            --border-color: #333333;
+            --hover-color: #ffffff;
+        }
+
+        /* --- Tipografi & Layout Dasar --- */
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        header {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #555;
+            font-weight: normal;
+            margin-top: 0;
+        }
+
+        .intro {
+            font-size: 0.95em;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* --- Kontrol Urutan --- */
+        .controls {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        select, button {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            font-family: inherit;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        select:hover, button:hover {
+            color: var(--bg-color);
+            background-color: var(--hover-color);
+        }
+
+        /* --- Daftar Cerita --- */
+        .story-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .story-item {
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            cursor: pointer;
+            transition: border-color 0.4s ease;
+        }
+
+        .story-item:hover {
+            border-color: #888;
+        }
+
+        .story-meta {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .story-title {
+            font-size: 1.2em;
+            margin: 0;
+            color: #aaa;
+        }
+
+        /* --- Tampilan Membaca --- */
+        #reader {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #reader-content {
+            margin-top: 30px;
+            white-space: pre-wrap;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        /* --- Tombol Spotify --- */
+        .spotify-wrapper {
+            margin-top: auto;
+            padding-top: 60px;
+        }
+
+        .spotify-link {
+            display: inline-block;
+            border: 1px solid #444;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #888;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .spotify-link:hover {
+            background: #1db954;
+            color: #000;
+            border-color: #1db954;
+        }
+
+        /* --- Animasi --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="main-view">
+            <header>
+                <h1>Toilet</h1>
+                <div class="intro">
+                    Hai selamat datang di apa yahh, bisa disebut ruang bercerita. Kalian sudah pasti tau siapa saya, karena yang bisa akses ini hanya orang yang memang kenal saya. Aga males sebenernya buat nunjukin hal ini. Tapi yaudahlah, mungkin ini bisa jadi tempat buat saya cerita-cerita yang gak bisa saya ceritain ke orang lain. Jadi yaudah, selamat membaca dan jangan terlalu berharap banyak sama apa yang saya tulis disini. Terima kasih sudah mampir.
+                </div>
+            </header>
+
+            <div class="controls">
+                <span>Kege"list"ahan</span>
+                <select id="sort-order" onchange="renderStories()">
+                    <option value="newest">Paling Baru</option>
+                    <option value="oldest">Paling Lama</option>
+                </select>
+            </div>
+
+            <div class="story-list" id="story-container">
+                </div>
+
+            <div class="spotify-wrapper">
+                <a href="https://open.spotify.com/user/31pxtsr6vblrjuep2jhn7ieaxeeu?si=fab921132f094cd2" target="_blank" class="spotify-link" id="spotify-btn">Wanna hear some music?</a>
+            </div>
+        </div>
+
+        <div id="reader">
+            <button onclick="goBack()">[ Kembali ]</button>
+            <div style="margin-top: 40px;">
+                <span class="story-meta" id="reader-date"></span>
+                <h2 class="story-title" id="reader-title" style="color: #fff;"></h2>
+                <div id="reader-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Data Cerita ---
+        const stories = [
+            {
+                id: 1,
+                title: "Beeing Intoverted",
+                content: `Entahlah setelah semuanya terjadi, kok gua ngerasa jadi intovert. Dan gua sadar akan satu hal, gua makin kesini makin jarang berinteraksi sama orang, gua kenapa cokkk. Bukan cuma introvert, bahkan gua gabisa apa yak hilang arah gitu? ngga juga apa anj yak. N gua pernah denger kalimat dari Stephen Hawking ~ "Quiet people have the loudest minds."(Orang yang paling diam biasanya memiliki pikiran yang paling berisik.), he's god damn true i think. Tapi ya realistis aja hidup mah lagian who care about u, i mean mee!!. The important is, keeps alive.`,
+                timestamp: "2026-04-02T01:28:00"
+            },
+            {
+                id: 2,
+                title: "Out of Control",
+                content: `Eh nih, au yak lama-lama gua makin ngerasa asing aj gtu sama diri gua sendiri. Semua kaya jalan di luar kendali, gua cuma ngikutin arus yang entah mau dibawa ke mana. Lucu aja, makin kesini gua makin males buat sekedar basa-basi atau dengerin drama orang-orang yang sebenernya nggak penting, tapi penting si.
+                
+Apalagi soal hubungan. Capek ga si kalo ujung-ujungnya cuma jadi ajang sandiwara doang? Dateng, janji, terus akhirnya yaa gitu lah "pengkhianatan". Gua bukannya nggak percaya kalo ada yang lebih baik, tapi buat sekarang, gua udah cape men udah males buat mulai lagi, buat buka lembar baru haghh cuihh. Buat apa maksa diri masuk ke lingkaran yang isinya cuma potensi buat dikhianatin lagi?
+                
+Orang-orang punya standar suksesnya masing-masing lagi, harus begini harus begitu, termasuk soal nikah. Tapi ya balik lagi, nikah nggak wajib kan? Di islam juga hukumnya makruh kn kalo kita ga nikah, buat apa dijadiin beban pikiran? Gua lebih milih hidup tenang dengan cara gua sendiri, walaupun mungkin kelihatan aneh, kelihatan naif di mata orang lain.
+                
+Ujung-ujungnya, yang paling penting kn gimana cara kita bisa tetep waras di tengah dunia yang makin nggak jelas ini.`,
+                timestamp: "2026-04-30T03:16:00"
+            },
+            {
+                id: 3,
+                title: "The Threshold",
+                content: `Kadang gua terjebak di antara dua keinginan yang saling bertolak belakang. Ada kalanya gua butuh suara lain—sekadar obrolan ringan dengan orang baru—hanya untuk memastikan kalau gua nggak benar-benar hilang ditelan pikiran sendiri. Mengobrol jadi semacam jeda, distraksi singkat yang bikin gua nggak terlalu ingat kalau gua sedang sendirian.
+
+Tapi anehnya, setiap kali obrolan itu berhenti, gua selalu merasa seperti kembali ke rumah. Begitu layar handphone mati, gua langsung sadar: kesendirian inilah yang sebenarnya gua cari. Ada rasa bersalah yang tipis, seolah-olah gua baru saja melalaikan prinsip hidup yang sudah gua bangun susah payah.
+
+Gua nggak mau berhenti mengobrol sama sekali, karena gua sadar manusia butuh jembatan ke dunia luar. Tapi gua juga nggak rela kalau jembatan itu berubah jadi pintu masuk yang membuat orang bisa seenaknya mengacak-acak ketenangan gua. Gua cuma pengen tetap punya teman bicara, tanpa harus terlibat dalam sandiwara perasaan atau drama yang melelahkan.
+
+Pada akhirnya, gua cuma ingin memegang kendali atas pintu gua sendiri. Menarik orang ke teras untuk sekadar bertukar kata, tapi tidak pernah membiarkan mereka masuk lebih jauh dari itu.`,
+                timestamp: "2026-05-03T01:01:20" 
+            },
+            {
+                id: 4,
+                title: "Redirection",
+                content: `Gua sering banget merasa gagal. Atau mungkin, kata yang lebih tepat bukan 'gagal', melainkan: banyak hal yang pada akhirnya batal terjadi. Rencana yang menguap begitu saja, ekspektasi yang tidak terwujud, atau langkah yang terhenti di tengah jalan. Dulu, setiap kali itu terjadi, gua selalu merasa ada yang salah dengan diri gua.
+
+Tapi belakangan, gua mulai memikirkan sudut pandang lain. Bagaimana kalau batalnya sebuah rencana bukan karena semesta sedang menghukum gua? Bagaimana kalau saat itu, gua memang belum siap untuk menerimanya? 
+
+Gua mulai percaya bahwa kadang, takdir sengaja menggagalkan sesuatu untuk melindungi kita. Ibaratnya, kalau acara itu tetap berjalan, mungkin gua akan berhadapan dengan situasi buruk yang nggak pernah gua prediksi. Jadi, kegagalan itu sebenarnya adalah bentuk penyelamatan.
+
+Sama halnya dengan hubungan yang kandas. Rasanya memang berat, tapi bisa jadi itu cara terbaik untuk mencegah kita hancur lebih parah di masa depan. Atau mungkin, itu adalah ruang kosong yang sengaja disiapkan karena akan ada sesuatu—atau seseorang—yang jauh lebih baik yang sedang menuju ke arah kita. Terkadang, sesuatu dibiarkan gagal hanya untuk memberi kita pelajaran penting.
+
+Pada akhirnya, gua belajar menyadari: tidak semua kegagalan adalah sebuah penolakan. Seringkali, itu adalah cara hidup membelokkan arah kita, menyelamatkan kita dari hal yang salah, agar kita siap saat hal yang benar-benar tepat itu datang.`,
+                timestamp: "2026-05-06T11:00:00"
+            },
+            {
+                id: 5,
+                title: "King for a Day",
+                content: `Ada titik di mana gua muak menjadi pihak yang selalu memaklumi. Selama ini gua terbiasa meredam suara, menekan ego, dan membiarkan orang lain atau situasi mengambil kendali. Gua pikir, dengan menjadi yang paling sabar, semuanya akan baik-baik saja. Tapi ternyata, diamnya gua malah dianggap sebagai kelemahan.
+
+Semakin lama gua menahan diri, rasanya dada ini makin mirip bom waktu. Gua capek harus terus-terusan mengemis untuk dihargai. Gua lelah mengikuti aturan main orang-orang yang bahkan nggak pernah peduli sama batas toleransi gua.
+
+Kadang, gua punya keinginan liar untuk membalikkan keadaan. Seenggaknya sekali aja, gua pengen merebut kendali itu. Menjadi 'raja' atas hidup gua sendiri, walau cuma sehari. Bikin aturan gua sendiri, menutup telinga dari semua ekspektasi, dan peduli setan sama apa kata mereka yang selama ini menekan gua. Kalau kesabaran cuma bikin gua terus diinjak, mungkin memang sudah saatnya gua menggebrak meja.
+
+Ini bukan soal niat jahat atau balas dendam. Ini murni soal bertahan hidup. Tentang hasrat untuk meledak dan membuktikan bahwa gua bukan sekadar bayangan yang bisa diatur-atur. Lebih baik menjadi egois dan berkuasa atas diri sendiri selama sehari, daripada selamanya hidup dalam penjara buatan orang lain.`,
+                timestamp: "2026-05-10T00:35:00"
+            },
+            {
+                id: 6,
+                title: "Unfamiliar Peace",
+                content: `Hai, jujur gua bingung banget. Gua buka nih web niatnya mau numpahin sesuatu, mau curhat lah, eh pas mau nulis otak gua malah nge-blank. Sempet bingung juga, apa gua ilang arah lagi?
+            
+Tapi abis dipikir-pikir lagi, kosongnya tuh beda. Bukan kosong yang karena gua lagi ancur atau nahan emosi. But actually, it's peaceful bruhhh KEDAMAIAN. Ntah kapan terakhir ngerasain gua ngerasain tenang, sampe-sampe rasanya malah asing banget buat gua sendiri. Aneh bat gila.
+            
+Dulu kan kepala gua berisik parah ya. Sibuk mikirin ekspektasi lah, nebak-nebak omongan orang, nahan kecewa, sampe capek sendiri ngebangun tembok pertahanan, defense my self. And, saking terbiasanya hidup dalam kekacauan batin, pas sekarang tiba-tiba hening, otak gua kaget. Kayak culture shock gitu sama yang namanya "ketenangan".
+            
+Sekarang, energi gua udah ga abis buat mikirin drama kehidupan atau sok-sokan nyari hikmah dari setiap kejadian. Otak gua malah milih kesudut ke hal-hal random aja di depan mata. Daripada mikir kejauhan, mending gua tenggelam berjam-jam mindahin bidak catur di layar, ngulik hal teknis yang ga ada urusannya sama perasaan, atau sekedar nikmatin hal remeh yang lagi gua lakuin sekarang.
+            
+Udah ga ada tuh mikir filosofis berat-berat. Gua cuma lagi ngejalanin hari aja. N lucu aja si ngetawain diri gua yang sempet bingung gara-gara ngerasa 'kosong', padahal nyatanya gua cuma lagi tenang, and finally im in this phase....`,
+                timestamp: "2026-05-23T03:35:00"
+            }
+            
+        ];
+
+        // --- Fungsi Utilitas ---
+
+        // Format Tanggal dan Jam
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            };
+            return date.toLocaleDateString('id-ID', options).replace('pukul', '|');
+        }
+
+        // --- Fungsi Utama ---
+
+        // Render Daftar Cerita
+        function renderStories() {
+            const container = document.getElementById('story-container');
+            const sortOrder = document.getElementById('sort-order').value;
+            container.innerHTML = '';
+
+            const sortedStories = [...stories].sort((a, b) => {
+                const dateA = new Date(a.timestamp);
+                const dateB = new Date(b.timestamp);
+                return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+            });
+
+            sortedStories.forEach(story => {
+                const div = document.createElement('div');
+                div.className = 'story-item';
+                div.onclick = () => openStory(story.id);
+                
+                div.innerHTML = `
+                    <span class="story-meta">${formatDate(story.timestamp)}</span>
+                    <h3 class="story-title">${story.title}</h3>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Buka Cerita
+        function openStory(id) {
+            const story = stories.find(s => s.id === id);
+            if (!story) return;
+
+        // Tambahkan baris ini untuk mengirim data ke Google Analytics
+            gtag('event', 'read_story', {
+                'story_title': story.title,
+                'story_id': story.id
+            });
+
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('reader').style.display = 'block';
+
+            document.getElementById('reader-date').innerText = formatDate(story.timestamp);
+            document.getElementById('reader-title').innerText = story.title;
+            document.getElementById('reader-content').innerText = story.content;
+    
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Kembali ke Daftar
+        function goBack() {
+            document.getElementById('reader').style.display = 'none';
+            document.getElementById('main-view').style.display = 'block';
+        }
+
+        // --- Inisialisasi ---
+        window.onload = renderStories;
+    </script>
+</body>
+</html>

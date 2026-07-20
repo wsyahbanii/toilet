@@ -1,0 +1,21 @@
+{
+  "name": "WS Toilet",
+  "short_name": "WS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "icons": [
+    {
+      "src": "toilet3.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "toilet3.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
